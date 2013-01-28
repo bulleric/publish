@@ -29,7 +29,7 @@ class PublishTest < ActiveSupport::TestCase
 
     assert_not_nil  @post.published_at
     assert_equal    @post.published?, true
-    assert_equal    @post.published_at, Date.today
+    assert_equal    @post.published_at.to_date, Date.today
   end
 
   test "should return published posts" do

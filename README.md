@@ -44,6 +44,14 @@ p.published?    #true
 Post.published.count  #1
 
 p.publication_status #Date.today or 'draft'
+
+
+### This version contain 2 additional functions
+
+p.unpublish!
+unpublish an published post.
+p.unpublish?
+returns true if an post is published else it returns false.
 ```
 
 ## Callbacks (before_publish and after_publish)
@@ -62,8 +70,18 @@ class Product
   after_publish
     puts "after publish"
   end
+
+
+  before_unpublish do
+    puts "before unpublish"
+  end
+
+  after_unpublish
+    puts "after unpublish"
+  end
+
 end
 
 product = Product.new
-product.publish! #=> before publish after publish
+product.publish! #=> before publish after publish / unpublish
 ```

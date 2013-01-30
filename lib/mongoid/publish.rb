@@ -13,10 +13,14 @@ module Mongoid
     end
 
     include Mongoid::Publish::Callbacks
-
     def published?
       return true if self.published && self.published_at && self.published_at <= DateTime.now
       false
+    end
+
+    def unpublished?
+      return false if self.published?
+      true
     end
 
     def publish!

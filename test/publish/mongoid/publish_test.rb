@@ -6,6 +6,12 @@ class PublishTest < ActiveSupport::TestCase
     @post = FactoryGirl.create(:post)
   end
 
+  test "should using unpublish? returns true if post is unpublished" do
+    assert_equal true, @post.unpublished?
+    @post.publish!
+    assert_equal false, @post.unpublished?
+  end
+
   test "should create published at field" do
     assert      @post.respond_to?(:published_at)
     assert_nil  @post.published_at

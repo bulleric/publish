@@ -24,7 +24,13 @@ module Mongoid
       self.published_at = DateTime.now
       self.save
     end
-    
+
+    def unpublish!
+      self.published    = false
+      self.published_at = nil
+      self.save
+    end
+
     def publication_status
       self.published? ? self.published_at.to_date : "draft"
     end

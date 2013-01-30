@@ -54,23 +54,32 @@ class PublishTest < ActiveSupport::TestCase
     assert post.published?
     assert_equal Post.published.size, 1
   end
-  
+
   test "should concat with criteria methods" do
     FactoryGirl.create(:post, :published => true, :title => "normal post")
     FactoryGirl.create(:post, :published => true, :title => "my special post")
-    
+
     assert_equal Post.where(:title => /special/).published.count, 1
     assert_equal Post.published.where(:title => /special/).count, 1
   end
-  
+
   test "should return publication status as draft if is not published yet" do
     assert_equal Post.last.publication_status, "draft"
   end
-  
+
   test "should return published at date if is published" do
     @post.publish!
-    
+
     assert_equal Post.last.publication_status, Date.today
   end
 
+  test "should unpublish a post" do
+    post = FactoryGirl.build(:post)
+    post.publish!
+    post.unpublish!
+    post.reload
+
+    assert_equal false, post.published?
+    assert_equal  0, Post.published.size
+  end
 end

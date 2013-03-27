@@ -5,8 +5,9 @@ module Mongoid
     included do
       field :published_at, :type => DateTime
       field :published,    :type => Boolean, :default => false
-      
+
       scope :published, where(:published => true )
+      scope :unpublished, where(:published => false)
       scope :published_and_orderly, where(:published => true).desc(:published_at, :created_at)
 
       before_save :set_published_at

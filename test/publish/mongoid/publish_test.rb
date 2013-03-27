@@ -38,6 +38,12 @@ class PublishTest < ActiveSupport::TestCase
     assert_equal    @post.published_at.to_date, Date.today
   end
 
+  test "should return unpublished posts" do
+    ## The Setup block set also an unpublished post because of this its needed to comparse with 3
+    2.times { FactoryGirl.create(:post) }
+    assert_equal Post.unpublished.size, 3
+  end
+
   test "should return published posts" do
     2.times { FactoryGirl.create(:post, :published => true) }
 
